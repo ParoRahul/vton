@@ -1,0 +1,8 @@
+./data/__pycache__
+./dataset/__pycache__
+./demo/__pycache__
+./lib/__pycache__
+./models/__pycache__
+./utils/__pycache__
+./vgg_model/__pycache__
+./**/__pycache__
