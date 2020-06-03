@@ -138,7 +138,6 @@ def array2img(img_array):
 def save_img(images, path):
     img = []
     assert len(images) > 0
-
     for i in range(len(images)):
         if isinstance(images[i], np.ndarray):
             if images[i].shape[3] == 1:
@@ -150,9 +149,15 @@ def save_img(images, path):
                 images[i] = images[i].repeat(1,3,1,1)
             if images[i].shape[1] == 3:
                 images[i] = ((images[i].permute(0,2,3,1).contiguous().cpu().numpy() * 0.5 + 0.5) * 255).astype(np.uint8)
+                 
     for i in range(len(images[0])):
-        img.append(np.concatenate([image[i] for image in images], axis=1))
-    
+        k=[]
+        for image in images:
+            if isinstance(image[i], np.ndarray):
+                k.append(image)
+            else:
+                k.append(image.cpu().numpy())     
+        img.append(np.concatenate(k, axis=1))
     img = np.concatenate(img, axis=0)
 
     image = Image.fromarray(img.astype(np.uint8))
